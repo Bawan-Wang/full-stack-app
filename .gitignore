@@ -1,0 +1,12 @@
+# Java
+hello-backend/target/
+*.iml
+.idea/
+*.log
+
+# Node
+hello-frontend/node_modules/
+hello-frontend/build/
+
+# OS
+.DS_Store
