@@ -1,0 +1,19 @@
+name: Localhost Redeploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  restart:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Restart Docker Containers
+        run: |
+          cd C:\Users\YourName\IdeaProjects\hello-fullstack
+          docker-compose down
+          docker-compose up -d --build
