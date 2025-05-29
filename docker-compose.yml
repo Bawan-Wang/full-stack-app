@@ -1,0 +1,23 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - frontend
+    networks:
+      - fullstack-net
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    networks:
+      - fullstack-net
+
+volumes:
+  mysql_data:
+
+networks:
+  fullstack-net:
+    driver: bridge 
