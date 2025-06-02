@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // 若使用 React Router
 
 function App() {
   const [workers, setWorkers] = useState([]);
   const [newWorker, setNewWorker] = useState({ id: '', name: '' });
   const [showTable, setShowTable] = useState(false);
+  const navigate = useNavigate(); // 導航用
 
   const fetchWorkers = async () => {
     try {
@@ -44,6 +46,11 @@ function App() {
     if (!showTable) fetchWorkers();
   };
 
+  const handleFileButtonClick = (workerName) => {
+    // 導向 /file/workerName 頁面
+    navigate(`/file/${workerName}`);
+  };
+
   return (
     <div style={{ padding: '40px', fontFamily: 'Arial' }}>
       <h2>➕ 新增工人</h2>
@@ -79,6 +86,7 @@ function App() {
             <tr>
               <th>ID</th>
               <th>Name</th>
+              <th>檔案</th>
             </tr>
           </thead>
           <tbody>
@@ -86,6 +94,11 @@ function App() {
               <tr key={worker.id}>
                 <td>{worker.id}</td>
                 <td>{worker.name}</td>
+                <td>
+                  <button onClick={() => handleFileButtonClick(worker.name)}>
+                    上傳/下載
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
