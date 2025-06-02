@@ -147,4 +147,15 @@ public class WorkersController {
         }
     }
 
+    @GetMapping("/files/{workerName}")
+    public List<String> listFiles(@PathVariable String workerName) {
+        Path folderPath = uploadDir.resolve(workerName);
+        File folder = folderPath.toFile();
+        if (!folder.exists() || !folder.isDirectory()) {
+            return List.of();
+        }
+        String[] fileNames = folder.list();
+        return fileNames != null ? List.of(fileNames) : List.of();
+    }
+
 }

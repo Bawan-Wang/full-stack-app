@@ -52,58 +52,71 @@ function App() {
   };
 
   return (
-    <div style={{ padding: '40px', fontFamily: 'Arial' }}>
-      <h2>➕ 新增工人</h2>
-      <div style={{ marginBottom: '10px' }}>
-        <input
-          type="text"
-          name="id"
-          placeholder="ID"
-          value={newWorker.id}
-          onChange={handleInputChange}
-          style={{ marginRight: '10px', padding: '5px' }}
-        />
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={newWorker.name}
-          onChange={handleInputChange}
-          style={{ marginRight: '10px', padding: '5px' }}
-        />
-        <button onClick={handleAddWorker}>新增</button>
-      </div>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',     // 水平置中
+        alignItems: 'flex-start',     // 靠上對齊
+        minHeight: '100vh',
+        backgroundColor: '#f8f8f8',
+        fontFamily: 'Arial',
+        paddingTop: '40px',
+      }}
+    >
+      <div style={{ padding: '40px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}>
+        <h2>➕ 新增工人</h2>
 
-      <div style={{ marginBottom: '10px' }}>
-        <button onClick={toggleTable}>
-          {showTable ? '隱藏工人列表' : '顯示工人列表'}
-        </button>
-      </div>
+        <div style={{ marginBottom: '10px' }}>
+          <input
+            type="text"
+            name="id"
+            placeholder="ID"
+            value={newWorker.id}
+            onChange={handleInputChange}
+            style={{ marginRight: '10px', padding: '5px' }}
+          />
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={newWorker.name}
+            onChange={handleInputChange}
+            style={{ marginRight: '10px', padding: '5px' }}
+          />
+          <button onClick={handleAddWorker}>新增</button>
+        </div>
 
-      {showTable && (
-        <table border="1" cellPadding="8" cellSpacing="0">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>檔案</th>
-            </tr>
-          </thead>
-          <tbody>
-            {workers.map((worker) => (
-              <tr key={worker.id}>
-                <td>{worker.id}</td>
-                <td>{worker.name}</td>
-                <td>
-                  <button onClick={() => handleFileButtonClick(worker.name)}>
-                    上傳/下載
-                  </button>
-                </td>
+        <div style={{ marginBottom: '10px' }}>
+          <button onClick={toggleTable}>
+            {showTable ? '隱藏工人列表' : '顯示工人列表'}
+          </button>
+        </div>
+
+        {showTable && (
+          <table border="1" cellPadding="8" cellSpacing="0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>檔案</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+            </thead>
+            <tbody>
+              {workers.map((worker) => (
+                <tr key={worker.id}>
+                  <td>{worker.id}</td>
+                  <td>{worker.name}</td>
+                  <td>
+                    <button onClick={() => handleFileButtonClick(worker.name)}>
+                      上傳/下載
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
     </div>
   );
 }
