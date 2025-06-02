@@ -20,7 +20,7 @@ hello-fullstack/
 ├── docker-compose.yml # Orchestrates backend and frontend
 └── .github/
 └── workflows/
-└── deploy.yml # GitHub Actions for CI/CD
+└── local-redeploy.yml # GitHub Actions for CI/CD
 
 ## 🐳 Getting Started
 
