@@ -8,7 +8,6 @@ const FilePage = () => {
 
   const [file, setFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState('');
-  const [downloadFileName, setDownloadFileName] = useState('');
   const [downloadStatus, setDownloadStatus] = useState('');
   const [fileList, setFileList] = useState([]);
 
