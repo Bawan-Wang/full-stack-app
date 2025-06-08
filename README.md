@@ -24,7 +24,5 @@ hello-fullstack/
 
 ## 🐳 Getting Started
 
-### First time (build and run):
-
 ### bash
 docker-compose up --build
