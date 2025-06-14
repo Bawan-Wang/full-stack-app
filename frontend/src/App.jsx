@@ -9,17 +9,18 @@ function App() {
 
   const fetchWorkers = async () => {
     try {
-      const response = await fetch('http://localhost:8080/getWorkers');
+      const response = await fetch('http://localhost:8080/api/workers');
       const data = await response.json();
-      setWorkers(data);
+      setWorkers(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('載入工人列表失敗:', error);
+      setWorkers([]); // fallback to empty array on error
     }
   };
 
   const handleAddWorker = async () => {
     try {
-      await fetch('http://localhost:8080/workers', {
+      await fetch('http://localhost:8080/api/workers', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

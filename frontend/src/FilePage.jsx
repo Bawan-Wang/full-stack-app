@@ -27,9 +27,11 @@ const FilePage = () => {
     formData.append('workerId', workerName);
 
     try {
-      const response = await axios.post(`http://localhost:8080/upload/${workerName}`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const response = await axios.post(
+        `http://localhost:8080/api/workers/${workerName}/upload`,
+        formData,
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      );
       setUploadStatus(response.data || '上傳成功');
       setFile(null);
       fetchFileList(); // 上傳後刷新列表
@@ -41,9 +43,10 @@ const FilePage = () => {
 
   const handleDownloadByFileName = async (fileName) => {
     try {
-      const response = await axios.get(`http://localhost:8080/download/${workerName}/${fileName}`, {
-        responseType: 'blob',
-      });
+      const response = await axios.get(
+        `http://localhost:8080/api/workers/${workerName}/download/${fileName}`,
+        { responseType: 'blob' }
+      );
 
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
@@ -64,7 +67,9 @@ const FilePage = () => {
   // 取得檔案列表
   const fetchFileList = useCallback(async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/files/${workerName}`);
+      const response = await axios.get(
+        `http://localhost:8080/api/workers/${workerName}/files`
+      );
       setFileList(response.data);
     } catch (error) {
       console.error('取得檔案列表失敗：', error);
