@@ -7,13 +7,10 @@ const HomePage = () => {
   const navigate = useNavigate();
   const { workers, loading, error, fetchWorkers, addWorker } = useWorkers();
   const [newWorker, setNewWorker] = useState({ name: '' });
-  const [showTable, setShowTable] = useState(false);
 
   useEffect(() => {
-    if (showTable) {
-      fetchWorkers();
-    }
-  }, [showTable, fetchWorkers]);
+    fetchWorkers();
+  }, [fetchWorkers]);
 
   const handleInputChange = (e) => {
     setNewWorker({
@@ -57,42 +54,31 @@ const HomePage = () => {
 
         {error && <div style={commonStyles.error}>{error}</div>}
 
-        <div style={{ marginBottom: '10px' }}>
-          <button 
-            onClick={() => setShowTable(!showTable)}
-            style={commonStyles.button}
-          >
-            {showTable ? '隱藏工人列表' : '顯示工人列表'}
-          </button>
-        </div>
-
-        {showTable && (
-          <table style={commonStyles.table}>
-            <thead>
-              <tr>
-                <th style={commonStyles.tableCell}>ID</th>
-                <th style={commonStyles.tableCell}>Name</th>
-                <th style={commonStyles.tableCell}>檔案</th>
+        <table style={commonStyles.table}>
+          <thead>
+            <tr>
+              <th style={commonStyles.tableCell}>ID</th>
+              <th style={commonStyles.tableCell}>Name</th>
+              <th style={commonStyles.tableCell}>檔案</th>
+            </tr>
+          </thead>
+          <tbody>
+            {workers.map((worker) => (
+              <tr key={worker.id}>
+                <td style={commonStyles.tableCell}>{worker.id}</td>
+                <td style={commonStyles.tableCell}>{worker.name}</td>
+                <td style={commonStyles.tableCell}>
+                  <button 
+                    onClick={() => handleFileButtonClick(worker.name)}
+                    style={commonStyles.button}
+                  >
+                    上傳/下載
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {workers.map((worker) => (
-                <tr key={worker.id}>
-                  <td style={commonStyles.tableCell}>{worker.id}</td>
-                  <td style={commonStyles.tableCell}>{worker.name}</td>
-                  <td style={commonStyles.tableCell}>
-                    <button 
-                      onClick={() => handleFileButtonClick(worker.name)}
-                      style={commonStyles.button}
-                    >
-                      上傳/下載
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
