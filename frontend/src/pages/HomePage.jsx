@@ -3,6 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useWorkers } from '../hooks/useWorkers';
 import { commonStyles } from '../styles/common';
 
+// 日期格式化工具
+const formatDate = (dateStr) => {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+};
+
 const HomePage = () => {
   const navigate = useNavigate();
   const { workers, loading, error, fetchWorkers, addWorker } = useWorkers();
@@ -57,8 +64,10 @@ const HomePage = () => {
         <table style={commonStyles.table}>
           <thead>
             <tr>
-              <th style={commonStyles.tableCell}>ID</th>
-              <th style={commonStyles.tableCell}>Name</th>
+              <th style={commonStyles.tableCell}>工號</th>
+              <th style={commonStyles.tableCell}>名字</th>
+              <th style={commonStyles.tableCell}>建立日期</th>
+              <th style={commonStyles.tableCell}>最後修改日期</th>
               <th style={commonStyles.tableCell}>檔案</th>
             </tr>
           </thead>
@@ -67,6 +76,8 @@ const HomePage = () => {
               <tr key={worker.id}>
                 <td style={commonStyles.tableCell}>{worker.id}</td>
                 <td style={commonStyles.tableCell}>{worker.name}</td>
+                <td style={commonStyles.tableCell}>{formatDate(worker.createdDate)}</td>
+                <td style={commonStyles.tableCell}>{formatDate(worker.lastModifiedDate)}</td>
                 <td style={commonStyles.tableCell}>
                   <button 
                     onClick={() => handleFileButtonClick(worker.name)}
