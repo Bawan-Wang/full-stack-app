@@ -1,12 +1,13 @@
 export const commonStyles = {
   container: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'flex-start',
     minHeight: '100vh',
     backgroundColor: '#f8f8f8',
     fontFamily: 'Arial',
     paddingTop: '40px',
+    paddingLeft: '40px',
   },
   card: {
     padding: '40px',
