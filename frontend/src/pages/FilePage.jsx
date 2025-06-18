@@ -37,7 +37,8 @@ const FilePage = () => {
 
   return (
     <div style={commonStyles.container}>
-      <div style={{ ...commonStyles.card, display: 'flex', maxWidth: '1000px', width: '100%' }}>
+      {/* 移除 card 樣式，直接顯示內容 */}
+      <div style={{ display: 'flex', maxWidth: '1000px', width: '100%' }}>
         {/* 左邊區塊：上傳/下載 */}
         <div style={{ flex: 1, marginRight: '40px' }}>
           <h2>{workerName} 的檔案管理</h2>

@@ -31,7 +31,7 @@ const HomePage = () => {
 
   return (
     <div style={commonStyles.container}>
-      <div style={commonStyles.card}>
+      <div>
         <h2>➕ 新增工人</h2>
 
         <div style={{ marginBottom: '10px' }}>
