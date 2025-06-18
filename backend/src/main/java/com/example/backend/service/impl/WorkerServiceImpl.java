@@ -72,6 +72,9 @@ public class WorkerServiceImpl implements WorkerService {
 
         Path path = folderPath.resolve(fileName);
         Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+        workerDao.updateLastModifiedDateByName(workerName, new Date());
+
         return fileName;
     }
 

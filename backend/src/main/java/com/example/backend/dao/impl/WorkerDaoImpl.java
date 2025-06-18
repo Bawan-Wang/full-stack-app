@@ -50,4 +50,13 @@ public class WorkerDaoImpl implements WorkerDao {
 
         return workers;
     }
+
+    @Override
+    public void updateLastModifiedDateByName(String workerName, java.util.Date date) {
+        String sql = "UPDATE workers SET last_modified_date = :date WHERE name = :name";
+        Map<String, Object> map = new HashMap<>();
+        map.put("date", date);
+        map.put("name", workerName);
+        namedParameterJdbcTemplate.update(sql, map);
+    }
 } 
