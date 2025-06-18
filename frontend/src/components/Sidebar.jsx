@@ -6,7 +6,7 @@ const Sidebar = () => (
     width: '180px',
     minHeight: '100vh',
     background: '#f0f0f0',
-    padding: '30px 0',
+    padding: '80px 0',
     boxSizing: 'border-box'
   }}>
     <nav style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
