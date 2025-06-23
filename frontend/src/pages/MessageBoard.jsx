@@ -7,13 +7,12 @@ export const getMessages = () => axios.get(API_BASE_URL);
 export const postMessage = (data) => axios.post(API_BASE_URL, data);
 
 const MessageBoard = () => {
-  const [messages, setMessages] = useState([
-    { id: 1, name: '小明', subject: '測試主題', content: '這是留言內容', createdAt: '2025/6/23 下午4:18:56' }
-  ]);
+  const [messages, setMessages] = useState([]);
   const [form, setForm] = useState({ name: '', subject: '', content: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [selectedMessage, setSelectedMessage] = useState(null);
 
   // 取得留言列表
   const fetchMessages = async () => {
@@ -30,7 +29,7 @@ const MessageBoard = () => {
   };
 
   useEffect(() => {
-    // fetchMessages();
+    fetchMessages();
   }, []);
 
   // 處理表單輸入
@@ -78,13 +77,69 @@ const MessageBoard = () => {
             {messages.map((msg) => (
               <tr key={msg.id}>
                 <td style={{ padding: '8px 16px', border: '1px solid #ddd' }}>{msg.name}</td>
-                <td style={{ padding: '8px 16px', border: '1px solid #ddd' }}>{msg.subject}</td>
-                <td style={{ padding: '8px 16px', border: '1px solid #ddd' }}>{msg.createdAt}</td>
+                <td
+                  style={{
+                    padding: '8px 16px',
+                    border: '1px solid #ddd',
+                    color: '#1976d2',
+                    cursor: 'pointer',
+                    textDecoration: 'underline'
+                  }}
+                  onClick={() => setSelectedMessage(msg)}
+                >
+                  {msg.subject}
+                </td>
+                <td style={{ padding: '8px 16px', border: '1px solid #ddd' }}>
+                  {msg.createdAt ? new Date(msg.createdAt).toLocaleString('zh-TW') : ''}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* Modal for message content */}
+      {selectedMessage && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.3)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            background: 'white',
+            padding: 32,
+            borderRadius: 8,
+            minWidth: 320,
+            maxWidth: 480,
+            boxShadow: '0 2px 16px rgba(0,0,0,0.2)'
+          }}>
+            <h3 style={{ marginTop: 0, marginBottom: 16 }}>留言內容</h3>
+            <div style={{ marginBottom: 24, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+              {selectedMessage.content}
+            </div>
+            <button
+              onClick={() => setSelectedMessage(null)}
+              style={{
+                padding: '8px 24px',
+                background: '#1976d2',
+                color: 'white',
+                border: 'none',
+                borderRadius: 4,
+                cursor: 'pointer'
+              }}
+            >
+              完成
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* 留言表單 */}
       <form onSubmit={handleSubmit}>
